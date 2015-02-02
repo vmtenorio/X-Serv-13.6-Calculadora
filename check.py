@@ -19,10 +19,12 @@ student_files = [
     'calculadora.py'
     ]
 
-repo_files = ['check.py',
-         'README.md',
-         '.gitignore',
-         '.git']
+repo_files = [
+    'check.py',
+    'README.md',
+    '.gitignore',
+    '.git'
+    ]
 
 files = student_files + repo_files
 
@@ -64,5 +66,9 @@ print
 print "La salida de pep8 es: (si todo va bien, no ha de mostrar nada)"
 print
 for filename in student_files:
-    os.system('pep8 --repeat --show-source --statistics /tmp/' + aleatorio + '/' + filename)
+    if filename in github_file_list:
+        os.system('pep8 --repeat --show-source --statistics /tmp/'
+                   + aleatorio + '/' + filename)
+    else:
+        print "Fichero " + filename + " no encontrado en el repositorio."
 print

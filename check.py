@@ -15,11 +15,16 @@ import sys
 
 ejercicio = 'X-Serv-13.6-Calculadora'
 
-files = ['calculadora.py',
-         'check.py',
+student_files = [
+    'calculadora.py'
+    ]
+
+repo_files = ['check.py',
          'README.md',
          '.gitignore',
          '.git']
+
+files = student_files + repo_files
 
 if len(sys.argv) != 2:
     print
@@ -36,22 +41,28 @@ print
 print "Clonando el repositorio " + repo_git + "\n"
 os.system('git clone ' + repo_git + ' /tmp/' + aleatorio + ' > /dev/null 2>&1')
 try:
-    student_file_list = os.listdir('/tmp/' + aleatorio)
+    github_file_list = os.listdir('/tmp/' + aleatorio)
 except OSError:
     error = 1
     print "Error: No se ha podido acceder al repositorio " + repo_git + "."
     print
     sys.exit()
 
-if len(student_file_list) != len(files):
+if len(github_file_list) != len(files):
     error = 1
     print "Error: número de ficheros en el repositorio incorrecto"
 
 for filename in files:
-    if filename not in student_file_list:
+    if filename not in github_file_list:
         error = 1
         print "\tError: " + filename + " no encontrado en el repositorio."
 
 if not error:
     print "Parece que la entrega se ha realizado bien."
+
+print
+print "La salida de pep8 es: (si todo va bien, no ha de mostrar nada)"
+print
+for filename in student_files:
+    os.system('pep8 --repeat --show-source --statistics /tmp/' + aleatorio + '/' + filename)
 print
